@@ -7,9 +7,7 @@ from utils import parse_method, parse_status_code, get_status_phrase
 
 
 def handle_connection(connection: socket.socket, address):
-    """
-    Handle connection
-    """
+    """Handle connection"""
     data = connection.recv(10000)
     request = data.decode("utf-8")
     headers = request.split("\r\n\r\n")[0].split("\r\n")
@@ -31,9 +29,7 @@ def handle_connection(connection: socket.socket, address):
 
 
 def start_server(host: str, port: int):
-    """
-    Start echo server
-    """
+    """Start echo server"""
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
         server_socket.bind((host, port))
         server_socket.listen()

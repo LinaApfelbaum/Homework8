@@ -5,9 +5,7 @@ from http import HTTPStatus
 
 
 def parse_method(status_line):
-    """
-    Parse method from status line
-    """
+    """Parse method from status line"""
     status_line_parts = status_line.split(' ')
     if len(status_line_parts) > 1:
         return status_line_parts[0]
@@ -16,9 +14,7 @@ def parse_method(status_line):
 
 
 def parse_status_code(status_line):
-    """
-    Parse status code from status line
-    """
+    """Parse status code from status line"""
     matches = re.findall(r'status=(\d+)', status_line)
     if len(matches) == 1:
         status = int(matches[0])
@@ -31,9 +27,7 @@ def parse_status_code(status_line):
 
 
 def get_status_phrase(status_code):
-    """
-    Get status phrase by status code
-    """
+    """Get status phrase by status code"""
     try:
         return HTTPStatus(status_code).phrase
     except ValueError:
