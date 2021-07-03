@@ -16,16 +16,15 @@ def handle_connection(connection: socket.socket, address):
     status_code = parse_status_code(status_line)
     status_phrase = get_status_phrase(status_code)
 
-    connection.send(
-        f"HTTP/1.1 {status_code} {status_phrase}\r\n".encode("utf-8"))
-    connection.send("\r\n".encode("utf-8"))
-    connection.send(f"Request Method: {method}\r\n".encode("utf-8"))
-    connection.send(
-        f"Request Source: ({address[0]}, {address[1]})\r\n".encode("utf-8"))
-    connection.send(
-        f"Response Status: {status_code} {status_phrase}\r\n".encode("utf-8"))
-    connection.send("\r\n".join(headers).encode("utf-8"))
-    connection.send("\r\n".encode("utf-8"))
+    message = f"HTTP/1.1 {status_code} {status_phrase}\r\n" + \
+        "\r\n" + \
+        f"Request Method: {method}\r\n" + \
+        f"Request Source: ({address[0]}, {address[1]})\r\n" + \
+        f"Response Status: {status_code} {status_phrase}\r\n" + \
+        "\r\n".join(headers) + \
+        "\r\n"
+
+    connection.send(message.encode("utf-8"))
 
 
 def start_server(host: str, port: int):
